@@ -1,7 +1,7 @@
 Name:           uhd
 URL:            http://code.ettus.com/redmine/ettus/projects/uhd/wiki
-Version:        3.4.1
-Release:        2
+Version:        3.5.0
+Release:        1
 Group:          Communications
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
@@ -13,8 +13,8 @@ Source1:	make-tarball
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  libusb1-devel
-BuildRequires:  liborc-devel
+BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(orc-0.4)
 BuildRequires:  python-cheetah
 BuildRequires:  python-docutils
 BuildRequires:  doxygen
@@ -93,3 +93,10 @@ getent group usrp >/dev/null || groupadd -r usrp
 %doc _tmpdoc/*
 %{_docdir}/%{name}/manual/*/*
 %{_docdir}/%{name}/doxygen/*/*
+
+
+%changelog
+* Thu Apr 19 2012 Alexander Khrukin <akhrukin@mandriva.org> 3.4.1-1
++ Revision: 791913
+- imported package uhd
+

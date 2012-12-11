@@ -1,0 +1,21 @@
+#!/bin/bash
+# make-tarball
+########################
+# This script will download git master, list the available tagged revisions
+# and create a tarball of the selected version.
+# It will then delete git master.
+# Run as user from the SOURCES dir with: ./make-tarball <tarname> <git-URL>
+# ######################
+name="$1"
+url="$2"
+echo "Please wait - this may take some time ..."
+[[ -d ${name} ]] && rm -rf ${name}
+git clone "$url"
+cd ${name}
+tag_lst=($(git tag -l))
+echo -e "Version tags available:- ${tag_lst[@]}\n"
+read -p "Enter the exact tag string you wish to select (e.g. v3.5.1 ) " ver_tag
+read -p "Enter the filename version suffix to use (e.g. 3.5.1 ) " ver
+git checkout ${ver_tag}
+git archive --format=tar --prefix=${name}-${ver}/ ${ver_tag} | gzip > ../${name}-${ver}.tar.gz
+[[ $? = 0 ]] && { echo "Written file: ${name}-${ver}.tar.gz"; cd ..; rm -rf ${name}; }
