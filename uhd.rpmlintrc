@@ -1,0 +1,8 @@
+# /usr/libexec- should be fixed this macro 
+addFilter("W: non-standard-dir-in-usr")
+# devel
+addFilter("E: no-dependency-on")
+# to do : split libs 
+addFilter("E: executable-in-library-package")
+# debug crap 
+addFilter("E: debuginfo-without-sources")
