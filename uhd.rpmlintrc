@@ -6,3 +6,4 @@ addFilter("E: no-dependency-on")
 addFilter("E: executable-in-library-package")
 # debug crap 
 addFilter("E: debuginfo-without-sources")
+addFilter("E: incoherent-version-in-name")
