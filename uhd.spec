@@ -10,6 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 # $ make-tarball uhd git://code.ettus.com/ettus/uhd.git
 # See note in make-tarball script
 Source1:	make-tarball
+Source100:      uhd.rpmlintrc
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -94,9 +95,4 @@ getent group usrp >/dev/null || groupadd -r usrp
 %{_docdir}/%{name}/manual/*/*
 %{_docdir}/%{name}/doxygen/*/*
 
-
-%changelog
-* Thu Apr 19 2012 Alexander Khrukin <akhrukin@mandriva.org> 3.4.1-1
-+ Revision: 791913
-- imported package uhd
 
