@@ -1,7 +1,7 @@
 Name:           uhd
 URL:            http://code.ettus.com/redmine/ettus/projects/uhd/wiki
 Version:        3.5.0
-Release:        1
+Release:        2
 Group:          Communications
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
