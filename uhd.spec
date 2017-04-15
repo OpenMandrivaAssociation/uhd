@@ -32,7 +32,7 @@ future Ettus Research products. It can be used standalone without GNU Radio.
 %build
 mkdir -p host/build
 cd host/build
-cmake ../ -DCMAKE_INSTALL_PREFIX=/usr 
+cmake ../ -DCMAKE_INSTALL_PREFIX=/usr -DPYTHON_EXECUTABLE=%__python2
 %make
 
 %check
