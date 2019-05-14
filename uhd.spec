@@ -78,11 +78,7 @@ mkdir -p %{buildroot}%{_libexecdir}/uhd
 mv %{buildroot}%{_libdir}/uhd/utils/* %{buildroot}%{_libexecdir}/uhd
 popd
 
-%if %{with python}
-2to3 -w %{buildroot}/%{python3_sitearch}/%{name}/*.py
-%endif
-2to3 -w %{buildroot}/%{_libexecdir}/%{name}/*.py
-2to3 -w %{buildroot}/%{_libexecdir}/%{name}/latency/*.py
+find %{buildroot} -name "*.py" -print -exec 2to3 -w {} \;
 
 %package doc
 Summary:        Documentation files for UHD
