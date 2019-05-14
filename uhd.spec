@@ -1,4 +1,10 @@
 %define _disable_lto %nil
+# enable in next version
+%bcond_with python
+
+%define api %{version}
+%define libname	%mklibname %{name} %{api}
+%define devname	%mklibname -d %{name}
 
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
@@ -17,6 +23,11 @@ BuildRequires:  pkgconfig(udev)
 BuildRequires:  doxygen
 BuildRequires:	python-mako
 BuildRequires:	python-docutils
+%if %{with python}
+BuildRequires:	pkgconfig(python)
+%endif
+
+Requires:	%{libname} = %{EVRD}
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -24,7 +35,8 @@ The goal of the UHD is to provide a host driver and API for current and
 future Ettus Research products. It can be used standalone without GNU Radio.
 
 %prep
-%autosetup -p1
+%setup -qn %{name}-%{version}
+%autopatch -p1
 
 %build
 cd host
@@ -65,21 +77,46 @@ mkdir -p %{buildroot}%{_libexecdir}/uhd
 mv %{buildroot}%{_libdir}/uhd/utils/* %{buildroot}%{_libexecdir}/uhd
 popd
 
-%package devel
-Summary:        Development files for UHD
-Group:          Communications
-Requires:       %{name} = %{version}-%{release}
-
-%description devel
-Development files for the Universal Hardware Driver (UHD).
+%if %{with python}
+2to3 -w %{buildroot}/%{python3_sitearch}/%{name}/*.py
+%endif
+2to3 -w %{buildroot}/%{_libexecdir}/%{name}/*.py
+2to3 -w %{buildroot}/%{_libexecdir}/%{name}/latency/*.py
 
 %package doc
 Summary:        Documentation files for UHD
 Group:          Communications
 BuildArch:      noarch
 
+%package -n	%{libname}
+Summary:	Universal Hardware Driver (UHD)
+Group:		System/Libraries
+
+%description -n	%{libname}
+Universal Hardware Driver (UHD)
+
+%package -n	%{devname}
+Summary:	Development files for %{name}
+Group:		Development/C
+Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%{name}-devel-doc < 1.0.15-2
+
+%description -n	%{devname}
+Development files for the Universal Hardware Driver (UHD).
+
 %description doc
 Documentation for the Universal Hardware Driver (UHD).
+
+%if %{with python}
+%package -n python-%{name}
+Summary:	Python 3 bindings for %{uhd}
+Group:		Development/Python
+Requires:	%{name} = %{EVRD}
+
+%description -n python-%{name}
+python bindings for %{name}
+%endif
 
 %pre -n uhd
 getent group usrp >/dev/null || groupadd -r usrp
@@ -90,10 +127,12 @@ getent group usrp >/dev/null || groupadd -r usrp
 %{_mandir}/man1/octo*.*
 %{_mandir}/man1/usrp*.*
 %config(noreplace) %{_sysconfdir}/udev/rules.d/10-usrp-uhd.rules
-%{_libdir}/lib*.so.*
 %{_libexecdir}/uhd
 
-%files devel
+%files -n %{libname}
+%{_libdir}/lib*.so.*
+
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
@@ -106,4 +145,7 @@ getent group usrp >/dev/null || groupadd -r usrp
 %{_docdir}/%{name}/doxygen/*/*
 %{_datadir}/%{name}/
 
-
+%if %{with python}
+%files -n python-%{name}
+%{python3_sitearch}/%{name}/
+%endif
