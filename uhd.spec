@@ -18,6 +18,7 @@ Source100:      uhd.rpmlintrc
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  boost-chrono-devel
+BuildRequires:  boost-static-devel
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  doxygen
