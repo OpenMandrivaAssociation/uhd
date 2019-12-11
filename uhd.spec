@@ -9,7 +9,7 @@
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
 Version:        3.14.0.0
-Release:        1
+Release:        2
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}.tar.gz
