@@ -8,8 +8,8 @@
 
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
-Version:        3.14.0.0
-Release:        2
+Version:        3.15.0.0
+Release:        1
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}.tar.gz
@@ -40,6 +40,7 @@ future Ettus Research products. It can be used standalone without GNU Radio.
 %autopatch -p1
 
 %build
+export GITREV=%{version}
 cd host
 mkdir build
 pushd build
@@ -48,6 +49,7 @@ cmake .. -DENABLE_UTILS=ON \
 	-DENABLE_E300=ON \
 	-DENABLE_PYTHON3=ON \
 	-DENABLE_TESTS=OFF \
+	-DUHD_VERSION=%{version} \
 	-DENABLE_EXAMPLES=OFF \
 	-DPYTHON_EXECUTABLE:FILEPATH=%{__python} \
 	-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
@@ -61,7 +63,6 @@ pushd host
 %make_build test -C build
 
 %install
-for i in $(grep -rl '%{version}-0-ef798400' .); do sed -i 's!3.14.0.0!%{version}!g' $i;done
 pushd host
 %make_install -C build
 
@@ -135,6 +136,7 @@ getent group usrp >/dev/null || groupadd -r usrp
 %{_libdir}/pkgconfig/*.pc
 %{_libdir}/cmake/uhd/UHDConfig.cmake
 %{_libdir}/cmake/uhd/UHDConfigVersion.cmake
+%{_libdir}/cmake/uhd/UHDBoost.cmake
 
 %files doc
 %{_datadir}/doc/uhd/LICENSE
