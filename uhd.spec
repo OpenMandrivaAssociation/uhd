@@ -14,6 +14,7 @@ Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}.tar.gz
 Source100:      uhd.rpmlintrc
+Patch1:		uhd-boost-1.73-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
