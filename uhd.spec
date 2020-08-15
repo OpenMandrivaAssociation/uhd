@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+
 %define _disable_lto %nil
 # enable in next version
 %bcond_with python
