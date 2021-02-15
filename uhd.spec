@@ -20,6 +20,7 @@ Patch1:		uhd-boost-1.73-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
+BuildRequires:  icu-devel
 BuildRequires:  boost-chrono-devel
 BuildRequires:  boost-static-devel
 BuildRequires:  pkgconfig(libusb-1.0)
