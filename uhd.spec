@@ -1,5 +1,7 @@
-%global debug_package %{nil}
+#% global debug_package %{nil}
+#% global _debugsource_packages 0
 
+%global Werror_cflags %nil
 %define _disable_lto %nil
 # enable in next version
 %bcond_with python
@@ -10,13 +12,12 @@
 
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
-Version:        3.15.0.0
-Release:        3
+Version:	4.1.0.4
+Release:	1
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}.tar.gz
 Source100:      uhd.rpmlintrc
-Patch1:		uhd-boost-1.73-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
@@ -45,6 +46,7 @@ future Ettus Research products. It can be used standalone without GNU Radio.
 
 %build
 export GITREV=%{version}
+%set_build_flags
 cd host
 mkdir build
 pushd build
@@ -83,7 +85,7 @@ mkdir -p %{buildroot}%{_libexecdir}/uhd
 mv %{buildroot}%{_libdir}/uhd/utils/* %{buildroot}%{_libexecdir}/uhd
 popd
 
-find %{buildroot} -name "*.py" -print -exec 2to3 -w {} \;
+#find %{buildroot} -name "*.py" -print -exec 2to3 -w {} \;
 
 %package doc
 Summary:        Documentation files for UHD
