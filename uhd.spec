@@ -16,7 +16,7 @@ Version:	4.1.0.5
 Release:	1
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
-Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}.tar.gz
+Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
 Source100:      uhd.rpmlintrc
 
 BuildRequires:  cmake
