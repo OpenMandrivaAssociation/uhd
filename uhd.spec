@@ -22,6 +22,7 @@ Source100:      uhd.rpmlintrc
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  icu-devel
+BuildRequires:	atomic-devel
 BuildRequires:  boost-chrono-devel
 BuildRequires:  boost-static-devel
 BuildRequires:  pkgconfig(libusb-1.0)
