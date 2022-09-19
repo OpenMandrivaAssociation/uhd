@@ -12,8 +12,8 @@
 
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
-Version:	4.1.0.5
-Release:	2
+Version:	4.3.0.0
+Release:	1
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -22,6 +22,7 @@ Source100:      uhd.rpmlintrc
 BuildRequires:  cmake
 BuildRequires:  boost-devel
 BuildRequires:  icu-devel
+BuildRequires:	atomic-devel
 BuildRequires:  boost-chrono-devel
 BuildRequires:  boost-static-devel
 BuildRequires:  pkgconfig(libusb-1.0)
@@ -128,7 +129,6 @@ getent group usrp >/dev/null || groupadd -r usrp
 %files
 %{_bindir}/*
 %{_mandir}/man1/%{name}*.*
-%{_mandir}/man1/octo*.*
 %{_mandir}/man1/usrp*.*
 %config(noreplace) %{_sysconfdir}/udev/rules.d/10-usrp-uhd.rules
 %{_libexecdir}/uhd
