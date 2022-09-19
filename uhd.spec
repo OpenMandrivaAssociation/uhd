@@ -129,7 +129,6 @@ getent group usrp >/dev/null || groupadd -r usrp
 %files
 %{_bindir}/*
 %{_mandir}/man1/%{name}*.*
-%{_mandir}/man1/octo*.*
 %{_mandir}/man1/usrp*.*
 %config(noreplace) %{_sysconfdir}/udev/rules.d/10-usrp-uhd.rules
 %{_libexecdir}/uhd
