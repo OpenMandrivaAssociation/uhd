@@ -31,7 +31,10 @@ BuildRequires:  doxygen
 BuildRequires:	python-mako
 BuildRequires:	python-docutils
 %if %{with python}
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
+BuildRequires:	python%{pyver}dist(mako)
+BuildRequires:	python%{pyver}dist(requests)
+BuildRequires:	python%{pyver}dist(numpy)
 %endif
 
 Requires:	%{libname} = %{EVRD}
