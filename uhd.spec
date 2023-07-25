@@ -2,18 +2,18 @@
 #% global _debugsource_packages 0
 
 %global Werror_cflags %nil
-%define _disable_lto %nil
+#define _disable_lto %nil
 # enable in next version
-%bcond_with python
+%bcond_without python
 
 %define api %{version}
-%define libname	%mklibname %{name} %{api}
+%define libname	%mklibname %{name}
 %define devname	%mklibname -d %{name}
 
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
-Version:	4.3.0.0
-Release:	5
+Version:	4.4.0.0
+Release:	1
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -42,8 +42,7 @@ The goal of the UHD is to provide a host driver and API for current and
 future Ettus Research products. It can be used standalone without GNU Radio.
 
 %prep
-%setup -qn %{name}-%{version}
-%autopatch -p1
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 export GITREV=%{version}
@@ -153,4 +152,5 @@ getent group usrp >/dev/null || groupadd -r usrp
 %if %{with python}
 %files -n python-%{name}
 %{python3_sitearch}/%{name}/
+%{python3_sitearch}/usrp_mpm/
 %endif
