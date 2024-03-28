@@ -13,11 +13,12 @@
 Name:           uhd
 URL:            https://github.com/EttusResearch/uhd
 Version:	4.6.0.0
-Release:	5
+Release:	6
 Summary:        Universal Hardware Driver for Ettus Research products
 License:        GPLv3+
 Source0:	https://github.com/EttusResearch/uhd/archive/v%{version}/%{name}-%{version}.tar.gz
 Source100:      uhd.rpmlintrc
+Patch0:		uhd-4.6-boost-1.85.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel

@@ -1,0 +1,53 @@
+diff -up uhd-4.6.0.0/host/lib/usrp/mpmd/mpmd_image_loader.cpp.omv~ uhd-4.6.0.0/host/lib/usrp/mpmd/mpmd_image_loader.cpp
+--- uhd-4.6.0.0/host/lib/usrp/mpmd/mpmd_image_loader.cpp.omv~	2024-03-28 02:36:01.149202474 +0100
++++ uhd-4.6.0.0/host/lib/usrp/mpmd/mpmd_image_loader.cpp	2024-03-28 02:44:15.201157238 +0100
+@@ -21,7 +21,6 @@
+ #include <boost/algorithm/string.hpp>
+ #include <boost/archive/iterators/binary_from_base64.hpp>
+ #include <boost/archive/iterators/transform_width.hpp>
+-#include <boost/filesystem/convenience.hpp>
+ #include <boost/optional.hpp>
+ #include <boost/property_tree/xml_parser.hpp>
+ #include <cctype>
+@@ -271,7 +270,7 @@ static uhd::usrp::component_files_t bin_
+     // DTS component struct
+     // First, we need to determine the name
+     const std::string base_name =
+-        boost::filesystem::change_extension(fpga_path, "").string();
++        boost::filesystem::path(fpga_path).replace_extension("").string();
+     if (base_name == fpga_path) {
+         const std::string err_msg(
+             "Can't cut extension from FPGA filename... " + fpga_path);
+@@ -340,7 +339,7 @@ static void mpmd_send_fpga_to_device(
+         UHD_LOG_TRACE("MPMD IMAGE LOADER", "FPGA path: " << fpga_path);
+ 
+         // If the fpga_path is a lvbitx file, parse it as such
+-        if (boost::filesystem::extension(fpga_path) == ".lvbitx") {
++        if (boost::filesystem::path(fpga_path).extension() == ".lvbitx") {
+             all_component_files = lvbitx_to_component_files(fpga_path, delay_reload);
+         } else {
+             all_component_files = bin_dts_to_component_files(fpga_path, delay_reload);
+diff -up uhd-4.6.0.0/host/lib/usrp/x300/x300_image_loader.cpp.omv~ uhd-4.6.0.0/host/lib/usrp/x300/x300_image_loader.cpp
+--- uhd-4.6.0.0/host/lib/usrp/x300/x300_image_loader.cpp.omv~	2024-03-28 02:49:16.075882164 +0100
++++ uhd-4.6.0.0/host/lib/usrp/x300/x300_image_loader.cpp	2024-03-28 02:51:44.298202896 +0100
+@@ -138,7 +138,7 @@ static void x300_validate_image(x300_ses
+             boost::format("Could not find image at path \"%s\".") % session.filepath));
+     }
+ 
+-    std::string extension = fs::extension(session.filepath);
++    std::string extension = fs::path(session.filepath).extension().string();
+     session.lvbitx        = (extension == ".lvbitx");
+ 
+     if (session.lvbitx) {
+diff -up uhd-4.6.0.0/host/lib/usrp_clock/octoclock/octoclock_image_loader.cpp.omv~ uhd-4.6.0.0/host/lib/usrp_clock/octoclock/octoclock_image_loader.cpp
+--- uhd-4.6.0.0/host/lib/usrp_clock/octoclock/octoclock_image_loader.cpp.omv~	2024-03-28 02:58:43.258605107 +0100
++++ uhd-4.6.0.0/host/lib/usrp_clock/octoclock/octoclock_image_loader.cpp	2024-03-28 02:59:07.420147820 +0100
+@@ -95,7 +95,7 @@ static void octoclock_validate_firmware_
+                                      % session.image_filepath));
+     }
+ 
+-    std::string extension = fs::extension(session.image_filepath);
++    std::string extension = fs::path(session.image_filepath).extension().string();
+     if (extension == ".bin") {
+         octoclock_read_bin(session);
+     } else if (extension == ".hex") {
