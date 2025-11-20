@@ -44,8 +44,10 @@ BuildRequires:	pkgconfig(udev)
 BuildRequires:	doxygen
 BuildRequires:	python-mako
 BuildRequires:	python-docutils
-BuildRequires:	sdcc
-BuildRequires:	sed
+%if ! %{with binary_firmware}
+BuildRequires:  sdcc
+BuildRequires:  sed
+%endif
 %if %{with python}
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python%{pyver}dist(mako)
