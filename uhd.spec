@@ -29,6 +29,7 @@ Source2:	%{url}/releases/download/v%{images_ver}/uhd-images_%{images_ver}.tar.xz
 Source100:	uhd.rpmlintrc
 
 BuildRequires:  cmake
+BuildRequires:	ninja
 # Since v 4.9.0.1 upstream added support for boost 1.89.0 and
 # dropped support for boost lower than 1.71.0
 BuildRequires:	boost-devel >= 1.71.0
