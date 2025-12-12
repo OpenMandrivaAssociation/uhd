@@ -20,7 +20,7 @@ URL:		https://github.com/EttusResearch/uhd
 Version:	4.9.0.1
 #%%global images_ver %%{version}
 %global images_ver 4.9.0.0
-Release:	1
+Release:	2
 Summary:	Universal Hardware Driver for Ettus Research products
 License:	GPL-3.0-or-later
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
