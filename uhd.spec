@@ -39,6 +39,7 @@ BuildRequires:	icu-devel
 BuildRequires:	atomic-devel
 BuildRequires:	boost-chrono-devel
 BuildRequires:	boost-static-devel
+BuildRequires:	ninja
 BuildRequires:	pkgconfig(libgps)
 BuildRequires:	pkgconfig(libpcap)
 BuildRequires:	pkgconfig(libusb-1.0)
